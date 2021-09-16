@@ -1,0 +1,28 @@
+/*속성을 이용한 선택자*/
+@import url('https://fonts.googleapis.com/css2?family=Stylish&display=swap');
+*{
+    font-family: 'Stylish', sans-serif;
+}
+
+input[type=submit], input[type=reset] {
+    cursor: pointer;
+    border: none;
+}
+input[type=text],input[type=password],input[type=email]{
+    width: 70%;
+}
+.td {
+    border-radius: 100px;
+    background-color: tan;
+    border: 1px solid black;
+    text-align: center;
+}
+.td1 {
+    text-align: center;
+}
+.thead {
+    text-align: center;
+}
+/* 
+ UI 구현 : 레이아웃, 색상, 글꼴
+*/

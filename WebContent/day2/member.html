@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSP1 프로젝트[6]</title>
+    <link rel="stylesheet" href="member.css">
+    <script>
+        /* form 요소 : input,select의 value 속성값 검사하기 -유효성 검사 
+            예) 이름에는 특수문자 제외, 나이0-~100, 취미는 1개 이상 선택....->string 메소드를 사용하면 길고 복잡.-> 정규식(가독성이 떨어진다.).
+            방법1)form 태그 onsubmit 이벤트 속성에 함수를 지정하여 검사한다.
+            방법2)form 태그의 type='submit' 버튼 대신에 일반 버튼을 사용하고 자바스크립트에서 submit() 메소드를 동작시킵니다.
+        */
+        function validCheck() {
+            const frm = document.frmReg;
+            //1. 패스워드는 8글자 이상이어야 한다.
+            if (frm.password.value.length < 8) {
+                alert('패스워드는 8글자 이상으로 하세요.');
+                frm.password.focus();				// 포커스(커서) 이동 
+                return false;						//함수가 종료.
+            }
+            //2. 나이 : 태그 min,max 무시 -> 20 ~ 70 값 범위로 검사합니다.
+            if (frm.age.value < 20 || frm.age.value > 70) {    //  return false 할 조건으로 작성. 이 위치는 위의 조건이 거짓일 때만 실행됩니다. 
+                alert('나이는 20세 이상 70세 이하로만 가능합니다. ');
+                frm.age.focus();
+                return false;
+            }
+
+            for (let i = 0; i < frm.hobby.length; i++) {
+                if (frm.hobby[i].checked) {       //checked 속성은 선택되어 있을 떄 true 
+                    return true;
+                }
+            }
+
+            //체크한것 이 한개도 없으면 여기와서 실행합니다.
+            alert('취미를 1개라도 선택해 주세요.');
+            return false;
+        }
+        function validCheck2() {
+            const frm = document.frmReg;
+            let flag = false;
+            let isValid = true; //action 속성값 변경하고 submit 하기 위해서 필요함.
+           
+            if (frm.name.value == "") { //required 처리를 위해서 필요.
+                alert("이름은 필수 입력입니다."); //자바스크립트는 줄바꿈하면; 자동 추가
+                flag = false;
+            }
+            //validCheck 에 작성한 유효성 검사 실행을 똑같이 할 수 있게 구현. 
+            else if (frm.password.value.length < 8) {
+                alert('패스워드는 8글자 이상으로 하세요.');
+                frm.password.focus();
+                isValid = false;			//리턴값 필요없이 함수 종료만.
+            }
+            else if (frm.age.value < 20 || frm.age.value > 70) {
+                alert('나이는 20세 이상 70세 이하로만 가능합니다. ');
+                frm.age.focus();
+                isValid = false;
+            }
+           /*  for (let i = 0; i < frm.hobby.length; i++) {
+                if (frm.hobby[i].checked) {
+                    flag = true;
+                    break;
+                }
+            } */
+            frm.hobby.forEach(element => {
+                    console.log(element.value);
+                    if(element.checked) flag =true;
+            });
+            //체크한것 이 한개도 없으면 여기와서 실행합니다.
+            if (!flag) {
+                alert('취미를 1개 이상 선택해 주세요.');
+                isValid = false;
+            }
+            if (isValid) {
+                alert('유효성 검사 OK!!!');
+                frm.action = 'success.html';			//action 속성값을 변경해서 submit 합니다. 
+                frm.submit();
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div style="width: 70%;margin: auto;">
+       	<b>회원등록</b>
+        <form action="member_save.jsp" name="frmReg" method="post"> 
+            <table style="width: 100%;margin: auto;">
+                <tr>
+                    <td class="td">이름</td><!-- required 필수 입력, readonly : 읽기만-->
+                    <td><input type="text" name="name" placeholder="이름 입력(필수)" required></td>
+                </tr>
+                <tr>
+                    <td class="td">패스워드</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td class="td">이메일</td>
+                    <td><input type="email" name="email"></td>
+                </tr>
+                <tr>
+                    <td class="td">나이</td>
+                    <td><input type="number" name="age" min="10" max="99" value="26"></td>
+                    <!-- value는 기본값, type="number" 일 때는 min,max 속성 설정 가능 -->
+                </tr>
+                <tr>
+                    <td class="td">주소</td>
+                    <td>
+                        <select name="address" id="">
+                            <!-- value 속성은 서버에 전달시킬 값 -->
+                            <option value="서울" selected>서울</option> <!-- selected는 기본선택 값 -->
+                            <option value="인천">인천</option> 
+                            <option value="대전">대전</option>
+                            <option value="대구">대구</option>
+                            <option value="부산">부산</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td">성별</td>
+                    <td>
+                        <input type="radio" value="male" name="gender" checked id="male"> <!-- checked는 기본선택 -->
+                        <label for="male">남자</label>
+                        <input type="radio" value="female" name="gender" id="female"> 
+                        <label for="female">여자</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td">취미</td>
+                    <td>
+                        <!-- checkbox도 checked는 기본선택 -->
+                        <!-- 복수 선택이 가능 : hobby 이름이 같고 선택 여러개 하면 선택한 값은 배열로 저장됩니다.-->
+                        <input type="checkbox" name="hobby" value="축구" id="football">
+                        <label for="football">축구</label>
+                        <input type="checkbox" name="hobby" value="농구" id="basketball">
+                        <label for="basketball">농구</label>
+                        <input type="checkbox" name="hobby" value="야구" id="baseball">
+                        <label for="baseball">야구</label>
+                        <input type="checkbox" name="hobby" value="배구" id="volleyball">
+                        <label for="volleyball">배구</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td1" colspan="2">
+                        <input type="submit" value="가입하기">
+                        <!-- submit : 서버에게 데이터를 제출 (from action 속성값에 설정된 url로 데이터 전달).
+                         action이 html은 데이터 전송확인은 못합니다. url 이동만 확인 -->
+                        <input type="reset" value="다시쓰기">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>
