@@ -29,14 +29,17 @@
 	<ul>
 		<li>이름 : <%=name%></li>
 		<li>나이 : <%=age%></li>
-		<!-- 파라미터에 lcatuon 도 전달해봅시다. -->
+		<!-- 파라미터에 location 도 전달해봅시다. -->
 		<li>지역 : <%=location%></li>
 	</ul>
 	<!-- 파라미터값으로 MyUser 객체를 생성해 봅시다. -->
 	<%
 		//	if (age==null) age="999";
 	//매우중료. 오류생기지 않도록 구현하세요.
-	if (age == null|| age.length()==0) { //java.lang.NumberFormatException : For input String : ""오류처리 age= "" 
+	if (age == null|| age.length()==0) { 
+		//파라미터 age가 없을 때
+		//java.lang.NumberFormatException : For input String : 
+		//	""오류처리 age= "" 일때 
 	%>
 	<script type="text/javascript">
 		alert('나이를 입력하세요.');
@@ -54,7 +57,7 @@
 	<ul>
 		<li>이름 : <%=my2.getName()%></li>
 		<li>나이 : <%=my2.getAge()%></li>
-		<!-- 파라미터에 lcatuon 도 전달해봅시다. -->
+		<!-- 파라미터에 location 도 전달해봅시다. -->
 		<li>지역 : <%=my2.getLocation()%></li>
 	</ul>
 	<%

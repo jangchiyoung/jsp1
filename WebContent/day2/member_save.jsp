@@ -17,9 +17,12 @@
 	String password = request.getParameter("password");
 	String email = request.getParameter("email");
 	String age = request.getParameter("age");
+	/* int age =  Integer.parseInt(request.getParameter("age")); //vo객체에 저장할때 필요합니다. */
 	String address = request.getParameter("address");
 	String gender = request.getParameter("gender");
 	String[] hobby = request.getParameterValues("hobby");
+	String hobbies = Arrays.toString(request.getParameterValues("hobby"));
+	//참고 : hobby는 배열입니다. ->getParameterValues() 메소드로 데이터를 받습니다. ->변수타입 String[]
 %>
 <h3>환영합니다. WELCOME!!!</h3>
 <ul>
@@ -29,7 +32,8 @@
 	<li>나이 : <%= age %>세</li>
 	<li>주소 : <%= address %></li>
 	<li>성별 : <%= gender.equals("male")?"남":"여" %></li>
-	<li>취미 : <%= Arrays.toString(hobby) %></li>
+	<li>취미 : <%= Arrays.toString(hobby)
+		.substring(1, Arrays.toString(hobby).length()-1)%></li> <!-- [ ] 빼기 -->
 </ul>
 </body>
 </html>
