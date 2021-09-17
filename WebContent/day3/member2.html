@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JSP1 프로젝트[6]</title>
+    <title>day3-4 member 회원등록</title>
     <link rel="stylesheet" href="../css/member.css">
     <script>
         /* form 요소 : input,select의 value 속성값 검사하기 -유효성 검사 
@@ -34,6 +34,11 @@
             //체크한것 이 한개도 없으면 여기와서 실행합니다.
             alert('취미를 1개라도 선택해 주세요.');
             return false;
+
+            /* if(true){
+                console.log(frm.hobby.length);
+                return false;
+            }	 */
         }
         function validCheck2() {
             const frm = document.frmReg;
@@ -82,7 +87,8 @@
 <body>
     <div style="width: 70%;margin: auto;">
        	<b>회원등록</b>
-        <form action="member_save.jsp" name="frmReg" method="post"> 
+        <!-- <form action="result.html" name="frmReg" onsubmit="return validCheck()"> 함수 리턴이 false 이면 submit동작 안합니다. -->
+        <form action="result.html" name="frmReg">
             <table style="width: 100%;margin: auto;">
                 <tr>
                     <td class="td">이름</td><!-- required 필수 입력, readonly : 읽기만-->
@@ -98,7 +104,7 @@
                 </tr>
                 <tr>
                     <td class="td">나이</td>
-                    <td><input type="number" name="age" min="10" max="99" value="26"></td>
+                    <td><input type="number" name="age" min="10" max="99" value="30"></td>
                     <!-- value는 기본값, type="number" 일 때는 min,max 속성 설정 가능 -->
                 </tr>
                 <tr>
@@ -106,8 +112,8 @@
                     <td>
                         <select name="address" id="">
                             <!-- value 속성은 서버에 전달시킬 값 -->
-                            <option value="서울" selected>서울</option> <!-- selected는 기본선택 값 -->
-                            <option value="인천">인천</option> 
+                            <option value="서울">서울</option>
+                            <option value="인천" selected>인천</option> <!-- selected는 기본선택 값 -->
                             <option value="대전">대전</option>
                             <option value="대구">대구</option>
                             <option value="부산">부산</option>
@@ -117,9 +123,9 @@
                 <tr>
                     <td class="td">성별</td>
                     <td>
-                        <input type="radio" value="male" name="gender" checked id="male"> <!-- checked는 기본선택 -->
+                        <input type="radio" value="male" name="gender" id="male">
                         <label for="male">남자</label>
-                        <input type="radio" value="female" name="gender" id="female"> 
+                        <input type="radio" value="female" name="gender" checked id="female"> <!-- checked는 기본선택 -->
                         <label for="female">여자</label>
                     </td>
                 </tr>
@@ -127,8 +133,8 @@
                     <td class="td">취미</td>
                     <td>
                         <!-- checkbox도 checked는 기본선택 -->
-                        <!-- 복수 선택이 가능 : hobby 이름이 같고 선택 여러개 하면 선택한 값은 배열로 저장됩니다.-->
-                        <input type="checkbox" name="hobby" value="축구" id="football">
+                        <!-- 복수 선택이 가능 : hobby 이름이 같고 선택 여러개 하면 선택한 값은 배열로 저장됩니다.--><input type="checkbox" name="hobby"
+                            value="축구" id="football">
                         <label for="football">축구</label>
                         <input type="checkbox" name="hobby" value="농구" id="basketball">
                         <label for="basketball">농구</label>
@@ -144,6 +150,16 @@
                         <!-- submit : 서버에게 데이터를 제출 (from action 속성값에 설정된 url로 데이터 전달).
                          action이 html은 데이터 전송확인은 못합니다. url 이동만 확인 -->
                         <input type="reset" value="다시쓰기">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td1" colspan="2">
+                        <input type="button" onclick="validCheck2()" value="가입하기[1] input type = " button>
+                        <!-- 이렇게도 씁니다. input 태그 required,email 타입체크 못함 -->
+                        <button type="button" onclick="validCheck2()">가입하기[2]</button>
+                        <!-- 이렇게도 씁니다. input 태그 required,email 타입체크 못함 -->
+                        <button>가입하기[3]-form 태그안의 아무 속성 없는 button</button>
+                        <!-- form 태그 안에서 type = submit이 default, form 태그의 action으로 전달됩니다. input type = "submit 와 동일함" -->
                     </td>
                 </tr>
             </table>
