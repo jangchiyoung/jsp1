@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>day3 [1]- db test</title>
+<title>day3[1]- db test</title>
 </head>
 <body>
 <h4>MySQL 연결 테스트</h4>

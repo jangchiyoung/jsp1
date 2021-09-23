@@ -1,3 +1,4 @@
+<%@page import="java.lang.ProcessBuilder.Redirect"%>
 <%@page import="day3.dao.CustomerDao"%>
 <%@page import="day3.dto.Customer"%>
 <%@page import="java.util.Arrays"%>
@@ -8,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Day3[3] - db 회원 등록2</title>
+<title>Day3[3] - db 회원 등록</title>
 <style>
 	ul{
 		list-style: none;
@@ -46,17 +47,9 @@
 	Customer cus = new Customer(0,name,password,email,address,gender,age,hobbies);
 	CustomerDao dao = CustomerDao.getInstance();
 	dao.insert(cus);
+	//1) 추가된 회원정보만 확인하기 registration_view.jsp 로 요청전달. 아래 2개의 명령어가 항상 같이 나옵니다.
+//	request.setAttribute("cus", cus);
+//	pageContext.forward("registration_view.jsp");
+	//2) 사용자가 요청하지 않았지만 회원리스트 list.jsp로 요청 바꾸기. registration.jsp에서 list.jsp로 변경.
+	response.sendRedirect("list.jsp"); //응답을 보낼 때 요청될 url 또는 파일을 지정합니다.
 %>
-<h3>환영합니다. WELCOME!!!</h3>
-<ul>
-	<li>이름 : <%= name %></li>
-	<li>비밀번호 : <%= password %></li>
-	<li>이메일 : <%= email %></li>
-	<li>나이 : <%= age %>세</li>
-	<li>주소 : <%= address %></li>
-	<li>성별 : <%= gender.equals("male")?"남":"여" %></li>
-	<li>취미 : <%= hobbies %></li>
-</ul>
-<a href = "member_list.jsp">회원리스트</a>
-</body>
-</html>
