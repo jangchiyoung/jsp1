@@ -35,22 +35,22 @@
 		<h3>회원 수정</h3>  <!-- 이메일 , 지역 -->
 		<form action="update_save.jsp" name="frmReg" method="post"
 			onsubmit="return validCheck()">
-			<input type="hidden" name="idx" value="${cus.getIdx}" >  
+			<input type="hidden" name="idx" value="${cus.idx}" >  
 			<!--브라우저에 출력은 안되고 파라미터로 필요한값은 type을 hidden으로 한다. -->
 			<table style="width: 100%">
 				<tr>
 					<td class="td"><label>이름</label></td>
 				
-					<td ><input type="text" name="name" placeholder="이름 입력(필수)" value="${cus.getName}"
+					<td ><input type="text" name="name" placeholder="이름 입력(필수)" value="${cus.name}"
 						readonly></td>   	<!--  readonly : 읽기만.입력못합니다.-->
 				</tr>
 				<tr>
 					<td class="td"><label>이메일</label></td>
-					<td><input type="email" name="email" value="${cus.getEmail}"></td>
+					<td><input type="email" name="email" value="${cus.email}"></td>
 				</tr>
 				<tr>
 					<td class="td"><label>나이</label></td>
-					<td><input type="number" name="age" min="10" max="99" value="${cus.getAge}"
+					<td><input type="number" name="age" min="10" max="99" value="${cus.age}"
 						readonly></td>
 					<!-- value는 기본값. type="number" 일 때는 min,max 속성 설정 가능.-->
 				</tr>
@@ -67,17 +67,17 @@
 					</select> 
 					<span id="addr_id">
 					<!-- disabled="disabled" 는 파라미터 값 전달에서 제외됩니다. -->
-					<input type="text" name="address_etc" disabled="disabled" value="${cus.getAddress}"
+					<input type="text" name="address_etc" disabled="disabled" value="${cus.address}"
 							placeholder="기타 지역을 입력하세요." >
 					</span></td>
 				</tr>
 				<tr>
 					<td class="td"><label>성별</label></td>
-					<td>${cus.getGender}</td>
+					<td>${cus.gender}</td>
 				</tr>
 				<tr>
 					<td class="td"><label>취미</label></td>
-					<td>${cus.getHobby}</td>
+					<td>${cus.hobby}</td>
 				</tr>
 				<tr>
 					<td colspan="2" style="text-align: center">

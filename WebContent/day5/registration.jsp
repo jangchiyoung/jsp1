@@ -49,7 +49,7 @@
 	int idx = dao.insert(cus);
 	cus.setIdx(idx);
 	
-	request.setAttribute("cus", cus); //여기서 cus 객체는 idx 값
+	request.setAttribute("cus", cus); //여기서 cus 객체는 idx 값이 0인 상태
 	pageContext.forward("registration_view.jsp");
 	
 %>
