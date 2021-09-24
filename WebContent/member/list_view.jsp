@@ -1,4 +1,3 @@
-
 <%@page import="java.util.List"%>
 <%@page import="day3.dao.CustomerDao"%>
 <%@page import="day3.dto.Customer"%>

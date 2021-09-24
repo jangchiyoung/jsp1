@@ -12,10 +12,29 @@
 	function validCheck() {
 		
 	}
-	
+	function deleteok() {
+		const yn = confirm('[주의] 등록된 고객에서 삭제하시겠습니까?');
+		if(yn){
+			alert(`고객 idx ${cus.idx} 를 삭제합니다.`);
+			location.href=`deleteOk.jsp?idx=${cus.idx}`;
+		}else {
+			alert('고객 삭제를 취소했습니다.');
+		}
+	}
 </script>
 </head>
 <body>
+<%
+if(request.getAttribute("alert")!=null){
+%>
+	<script type="text/javascript">
+		alert('고객 정보가 수정되었습니다.!');
+	</script>
+
+<%
+}
+%>
+
 <%
 	Customer cus = (Customer)request.getAttribute("cus");
 %>
@@ -27,49 +46,51 @@
 			<!--브라우저에 출력은 안되고 파라미터로 필요한값은 type을 hidden으로 한다. -->
 			<table style="width: 100%">
 				<tr>
-					<td><label>이름</label></td>
+					<td class="td"><label>이름</label></td>
 				
-					<td><input type="text" name="name" placeholder="이름 이력(필수)" value="<%=cus.getName() %>"
+					<td ><input type="text" name="name" placeholder="이름 이력(필수)" value="<%=cus.getName() %>"
 						readonly></td>   	<!--  readonly : 읽기만.입력못합니다.-->
 				</tr>
 				<tr>
-					<td><label>이메일</label></td>
+					<td class="td"><label>이메일</label></td>
 					<td><input type="email" name="email" value="<%=cus.getEmail() %>"></td>
 				</tr>
 				<tr>
-					<td><label>나이</label></td>
+					<td class="td"><label>나이</label></td>
 					<td><input type="number" name="age" min="10" max="99" value="<%=cus.getAge() %>"
 						readonly></td>
 					<!-- value는 기본값. type="number" 일 때는 min,max 속성 설정 가능.-->
 				</tr>
 				<tr>
-					<td><label for="">주소</label></td>
-					<td><select name="addr" id="addr_select">
+					<td class="td"><label for="">주소</label></td>
+					<td><select name="address" id="address_select">
 							<!-- value 속성은 서버에 전달시킬 값 -->
 							<option value="서울">서울</option>
 							<option value="인천" selected>인천</option>
 							<!-- selected 는 기본 선택 값. -->
 							<option value="대전">대전</option>
 							<option value="광주">광주</option>
-							<option value="기타">기타</option>
+							<option value="기타 " selected>기타</option>
 					</select> 
 					<span id="addr_id">
 					<!-- disabled="disabled" 는 파라미터 값 전달에서 제외됩니다. -->
-					<input type="text" name="addr_etc" disabled="disabled" value="<%=cus.getAddress() %>"
+					<input type="text" name="address_etc" disabled="disabled" value="<%=cus.getAddress() %>"
 							placeholder="기타 지역을 입력하세요." >
 					</span></td>
 				</tr>
 				<tr>
-					<td><label>성별</label></td>
+					<td class="td"><label>성별</label></td>
 					<td><%= cus.getGender() %></td>
 				</tr>
 				<tr>
-					<td><label>취미</label></td>
+					<td class="td"><label>취미</label></td>
 					<td><%= cus.getHobby() %></td>
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: center"><input
-						type="submit" value="수정하기"> 
+					<td colspan="2" style="text-align: center">
+					<input type="submit" value="수정하기"> 
+					<input type="button" value="삭제하기" onclick="deleteok()">
+					<input type="button" value="고객목록" onclick="location.href='list.jsp'">
 					<input type="reset" value="다시쓰기"></td>
 				</tr>
 			</table>
@@ -85,6 +106,11 @@
 			document.frmReg.addr_etc.disabled=true;
 		}
 		
+	});
+	
+	/* 표현식으로 자바의 변수값을 가져오기. cus객체의 addr프로퍼티 (get메소드를 통해서 가져옵니다.)*/
+	document.querySelectorAll("option").forEach( item => {
+		if(item.value===`${cus.address}`) item.selected=true;   
 	});
 	</script>
 </body>

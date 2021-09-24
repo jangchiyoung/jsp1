@@ -75,8 +75,31 @@ public class CustomerDao {
 		return list;
 	}
 	
+	public void delete(int idx) {
+		String sql ="delete from customer where idx=?";
+	
+		Connection conn = MySQLConnectionUtil.connect();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.execute();
+			conn.commit();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			System.out.println("delete 오류 : " + e.getMessage());
+		}finally {
+			try {
+				pstmt.close();
+			} catch (SQLException e1) {
+			}
+			MySQLConnectionUtil.close(conn);
+		}
+	}
+	
 	public void update(Customer cus) {
-		String sql ="update customer set email=?,addr=? where idx=?";
+		String sql ="update customer set email=?,address=? where idx=?";
 	
 		Connection conn = MySQLConnectionUtil.connect();
 		PreparedStatement pstmt = null;
@@ -104,7 +127,7 @@ public class CustomerDao {
 	
 	public void insert(Customer cus) {
 		
-		String sql="insert into customer(name,password,email,addr,gender,age,hobby)" + 
+		String sql="insert into customer(name,password,email,address,gender,age,hobby)" + 
 				" values (?,?,?,?,?,?,?)";
 		Connection conn = MySQLConnectionUtil.connect();
 		PreparedStatement pstmt =null;
